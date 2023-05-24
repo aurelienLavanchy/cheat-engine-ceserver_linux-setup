@@ -1,21 +1,32 @@
 #! /usr/bin/sh
 
-echo "Enter the desired path for Cheat Engine (that doesn't require root privilege because I'm bad at writing scripts)"
-read install_path
-version = curl -Is https://github.com/cheat-engine/cheat-engine/releases/latest | awk -F '/' '/^location/ {print substr($NF, 1, length($NF-1))}'    # source: https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8?permalink_comment_id=4411890#gistcomment-4411890
+# initial setup
+version=$(curl -Is https://github.com/cheat-engine/cheat-engine/releases/latest | awk -F '/' '/^location/ {print substr($NF, 1, length($NF-1))}')    # source: https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8?permalink_comment_id=4411890#gistcomment-4411890
+dl_version=$(echo "$version" | sed -e 's/\.//g')
+temp_path=~/Documents/cheat-engine-temp
+# add a check to remove existing $temp_path
+mkdir "$temp_path"
 
-cd $install_path
-wget https://github.com/cheat-engine/cheat-engine/archive/refs/tags/$version.zip
-unzip cheat-engine-$version.zip
+# grabbing the source code archive from the latest realease
+cd "$temp_path" || exit
+wget "https://github.com/cheat-engine/cheat-engine/archive/refs/tags/$version.zip" -O "cheat-engine-$version.zip"
+unzip "cheat-engine-$version.zip"
 
-cd 'cheat-engine-$version/Cheat Engine/ceserver/gcc'
-make
-mv ceserver $install_path
+# building ceserver and installing it
+cd "cheat-engine-$version/Cheat Engine/ceserver/gcc" || exit
+make --quiet > /dev/null 2>&1    # silence make output
+mkdir "$HOME/Cheat-Engine"
+mv ceserver ~/Cheat-Engine || exit
 
-cd -
-rm -rf cheat-engine-$version && rm cheat-engine-$version.zip
+# cleaning up
+cd - || exit
+rm -rf "cheat-engine-$version" && rm -f "cheat-engine-$version.zip"     # the "force" parameter for the zip file is probably unnecessary
 
-wget https://github.com/cheat-engine/cheat-engine/releases/download/$version/CheatEngine$version.exe
-# install Cheat Engine via Lutris
+# installing cheat engine
+wget "https://github.com/cheat-engine/cheat-engine/releases/download/$version/CheatEngine$dl_version.exe"
+wine "CheatEngine$dl_version.exe" WINEPREFIX=~/Cheat-Engine
 
-#wrap-up installation
+# wrapping-up the installation
+cd "$HOME/Documents" || exit
+rm -rf "cheat-engine-temp"
+echo "Done!"
