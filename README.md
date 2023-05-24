@@ -25,6 +25,7 @@
 
 ## Notes / TODO
 
-No error handling ! : avoid typing a path with spaces without surrounding it with quotes (`'` or `"`) or escaping spaces (`\ `)  
-The $install_path is used to store and manipulate the files (archive / executable / ...) which is not ideal moving forward, as installing ceserver to /usr/bin might be preferable over pointing to a loose executable  
-This script downloads the source code archive in Cheat Engine's releases for ceserver, this is intended as ceserver's "version" must match Cheat Engine's (to confirm)  
+- No error handling ! : avoid typing a path with spaces without surrounding it with quotes (`'` or `"`) or escaping spaces (`\ `)  
+- The $install_path is used to store and manipulate the files (archive / executable / ...) which is not ideal moving forward, as installing ceserver to /usr/bin might be preferable over pointing to a loose executable  
+- This script downloads the source code archive in Cheat Engine's releases to build ceserver instead of cloning the repo, this is intended as ceserver's "version" must match Cheat Engine's in order to work properly (to confirm)  
+- /usr/bin/sh might not be the best way to go depending on your system (?)
