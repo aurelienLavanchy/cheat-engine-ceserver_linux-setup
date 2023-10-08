@@ -16,11 +16,11 @@ unzip "cheat-engine-$version.zip"
 cd "cheat-engine-$version/Cheat Engine/ceserver/gcc" || exit
 make --quiet > /dev/null 2>&1    # silence make errors and warnings
 mkdir "$HOME/Cheat-Engine"
-mv ceserver ~/Cheat-Engine || exit      # moving ceserver to /usr/bin would be ideal but maybe not desirable to everyone ?
+mv ceserver ~/Cheat-Engine || exit
 
-# cleaning up, technically not necessary
+# cleaning up
 cd - || exit
-rm -rf "cheat-engine-$version" && rm -f "cheat-engine-$version.zip"     # the "force" parameter for the zip file is probably unnecessary
+rm -rf "cheat-engine-$version" && rm "cheat-engine-$version.zip"
 
 # installing cheat engine
 wget "https://github.com/cheat-engine/cheat-engine/releases/download/$version/CheatEngine$dl_version.exe"
@@ -29,4 +29,4 @@ WINEPREFIX="$HOME/Cheat-Engine" wine "$HOME/Documents/cheat-engine-temp/CheatEng
 # wrapping-up the installation
 cd "$HOME/Documents" || exit
 rm -rf "cheat-engine-temp"
-printf "\n" && echo "Done! But honestly I haven't implemented error handling so I have no way of knowing that, I'm just printing this message at the end of the script to tell you what's going on."
+printf "\n" && echo "Done!"
