@@ -1,18 +1,14 @@
 # cheat-engine_linux-install-script
 
-## Status
-
-❗Relatively untested but technically usable !
-
 ## Requirements
 
-### If not already installed
+**If not already installed**
 
 - wget
 - curl
 - make
 - unzip
-- wine (tested with 8.5 staging)
+- wine (tested with 8.5+ staging)
 
 ## Usage
 
@@ -25,9 +21,9 @@
 
 ## Notes / TODO
 
-- **No error handling !** : use at you own risks !
+- **No error handling**
 - This script downloads the source code archive in Cheat Engine's releases to build ceserver instead of cloning the repo, this is intended as ceserver's "version" must match Cheat Engine's in order to work properly (need confirmation)  
-- /usr/bin/sh might not be the best way to go depending on your system (?)
-- installs everything in $Home/Cheat-Engine, will change that behaviour when I figure out how to accept user input as a valid path
+- invoke something other than `/usr/bin/sh`
+- installs everything in $HOME/Cheat-Engine (for now)
 
 Made with VSCode + ShellCheck extension
